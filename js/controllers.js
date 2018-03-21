@@ -58,4 +58,12 @@ export class GamepadController extends Controller {
     GetYAxis() {
         return navigator.getGamepads()[this.gamepadId].axes[1];
     }
+
+    /**
+     * Return the state of a button.
+     * @param {number} index The index of the button.
+     */
+    GetButton(index) {
+        return navigator.getGamepads()[this.gamepadId].buttons[index].value;
+    }
 }

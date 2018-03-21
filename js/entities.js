@@ -44,6 +44,10 @@ export class Ship extends Entity {
         this.controller = controller;
 
         this.rotation = 0;
+        this.speed = {
+            x: 0,
+            y: 0
+        };
 
         this.controller.AddOnFireListener(() => {
             console.log("Dear sir, madam. FIRE! FIRE! FIRE!");
@@ -55,8 +59,31 @@ export class Ship extends Entity {
      * @param {CanvasRenderingContext2D} canvas The canvas to render to.
      */
     Update(canvas) {
-        this.Move(this.controller.GetXAxis(), this.controller.GetYAxis());
+        
+        if (this.controller.GetButton(6) > 0.1) {
 
-        canvas.fillRect(this.x, this.y, 10, 10);
+            this.rotation += Math.PI / 32;
+
+            this.speed.x += Math.cos(this.rotation) * 0.5;
+            this.speed.y += Math.sin(this.rotation) * 0.5;
+        }
+
+        if (this.controller.GetButton(7) > 0.1) {
+
+            this.rotation -= Math.PI / 32;
+
+            this.speed.x += Math.cos(this.rotation) * 0.5;
+            this.speed.y += Math.sin(this.rotation) * 0.5;
+        }
+        
+        this.speed.x -= this.speed.x / 64;
+        this.speed.y -= this.speed.y / 64;
+
+        this.Move(this.speed.x, this.speed.y);
+
+        canvas.beginPath();
+        canvas.lineTo(this.x - Math.cos(this.rotation) * 10, this.y - Math.sin(this.rotation) * 10);
+        canvas.lineTo(this.x + Math.cos(this.rotation) * 10, this.y + Math.sin(this.rotation) * 10);
+        canvas.stroke();
     }
 }
