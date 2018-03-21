@@ -5,16 +5,10 @@ export class Controller {
     }
 
     /**
-     * Used to query the state of the X axis.
-     * @returns {number} the state of the X axis
+     * Used to query the state of the turning axis.
+     * @returns {number} the state of the turning axis
      */
-    GetXAxis() { }
-
-    /**
-     * Used to query the state of the Y axis.
-     * @returns {number} the state of the Y axis
-     */
-    GetYAxis() { }
+    GetTurningAxis() { }
 
     /**
      * 
@@ -44,26 +38,77 @@ export class GamepadController extends Controller {
     }
 
     /**
-     * Used to query the state of the X axis.
-     * @returns {number} the state of the X axis
+     * Used to query the state of the turning axis.
+     * @returns {number} the state of the turning axis
      */
-    GetXAxis() {
-        return navigator.getGamepads()[this.gamepadId].axes[0];
+    GetTurningAxis() {
+        let gp = navigator.getGamepads()[this.gamepadId];
+        return - gp.buttons[6].value + gp.buttons[7].value;
+    }
+}
+
+export class KeyboardController extends Controller {
+
+    constructor() {
+        super();
+
+        this.state = {
+            right: false,
+            left: false,
+            fire: false
+        }
+
+        document.addEventListener("keydown", this.OnKeyDown.bind(this));
+        document.addEventListener("keyup", this.OnKeyUp.bind(this));
     }
 
     /**
-     * Used to query the state of the Y axis.
-     * @returns {number} the state of the Y axis
+     * Called when a key is pressed.
+     * @param {KeyboardEvent} ev The event.
      */
-    GetYAxis() {
-        return navigator.getGamepads()[this.gamepadId].axes[1];
+    OnKeyDown(ev) {
+        switch (ev.key) {
+            case "ArrowRight":
+            case "d":
+                this.state.right = true;
+                break;
+            case "ArrowLeft":
+            case "a":
+                this.state.left = true;
+                break;
+            case "Space":
+                this._onFireListeners.forEach( (value) => value() );
+                break;
+        }
     }
 
     /**
-     * Return the state of a button.
-     * @param {number} index The index of the button.
+     * Called when a key is released.
+     * @param {KeyboardEvent} ev The event.
      */
-    GetButton(index) {
-        return navigator.getGamepads()[this.gamepadId].buttons[index].value;
+    OnKeyUp(ev) {
+        switch (ev.key) {
+            case "ArrowRight":
+            case "d":
+                this.state.right = false;
+                break;
+            case "ArrowLeft":
+            case "a":
+                this.state.left = false;
+                break;
+        }
+    }
+
+    /**
+     * Used to query the state of the turning axis.
+     * @returns {number} the state of the turning axis
+     */
+    GetTurningAxis() {
+        let tmp = 0;
+
+        tmp -= (this.state.left)? 1: 0;
+        tmp += (this.state.right)? 1: 0;
+
+        return tmp;
     }
 }

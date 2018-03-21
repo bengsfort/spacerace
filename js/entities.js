@@ -60,18 +60,9 @@ export class Ship extends Entity {
      */
     Update(canvas) {
         
-        if (this.controller.GetButton(6) > 0.1) {
+        this.rotation += (Math.PI / 32) * this.controller.GetTurningAxis();
 
-            this.rotation += Math.PI / 32;
-
-            this.speed.x += Math.cos(this.rotation) * 0.5;
-            this.speed.y += Math.sin(this.rotation) * 0.5;
-        }
-
-        if (this.controller.GetButton(7) > 0.1) {
-
-            this.rotation -= Math.PI / 32;
-
+        if (Math.abs(this.controller.GetTurningAxis()) > 0.1) {
             this.speed.x += Math.cos(this.rotation) * 0.5;
             this.speed.y += Math.sin(this.rotation) * 0.5;
         }
