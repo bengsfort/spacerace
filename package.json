@@ -4,7 +4,7 @@
   "description": "A game. In space. About racing. The title already told you that though.",
   "main": "index.js",
   "scripts": {
-    "start": "rollup --config --watch --enviroment BUILD:dev",
+    "start": "rollup --config --watch --environment BUILD:dev",
     "build": "rollup --config --environment BUILD:production"
   },
   "author": "BeefEX",

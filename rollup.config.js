@@ -64,6 +64,6 @@ export default {
     chokidar : true,
     include: 'src/**',
     exclude: 'node_modules/**',
-    clearScreen: true
+    clearScreen: false
   }
 };
