@@ -8,7 +8,7 @@
     "build": "rollup --config --environment BUILD:production"
   },
   "author": "BeefEX",
-  "license": "ISC",
+  "license": "Unlicence",
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.0",
