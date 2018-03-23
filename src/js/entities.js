@@ -73,8 +73,9 @@ export class Ship extends Entity {
         this.Move(this.speed.x, this.speed.y);
 
         canvas.beginPath();
-        canvas.lineTo(this.x - Math.cos(this.rotation) * 10, this.y - Math.sin(this.rotation) * 10);
+        canvas.lineTo(this.x - Math.cos(this.rotation + 0.5) * 10, this.y - Math.sin(this.rotation + 0.5) * 10);
         canvas.lineTo(this.x + Math.cos(this.rotation) * 10, this.y + Math.sin(this.rotation) * 10);
+        canvas.lineTo(this.x - Math.cos(this.rotation - 0.5) * 10, this.y - Math.sin(this.rotation - 0.5) * 10);
         canvas.stroke();
     }
 }
