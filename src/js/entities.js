@@ -62,7 +62,7 @@ export class Ship extends Entity {
         
         this.rotation += (Math.PI / 32) * this.controller.GetTurningAxis();
 
-        if (Math.abs(this.controller.GetTurningAxis()) > 0.1) {
+        if (this.controller.IsTurning()) {
             this.speed.x += Math.cos(this.rotation) * 0.5;
             this.speed.y += Math.sin(this.rotation) * 0.5;
         }
