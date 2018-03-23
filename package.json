@@ -1,14 +1,13 @@
 {
   "name": "spacerace",
   "version": "1.0.0",
-  "description": "",
+  "description": "A game. In space. About racing. The title already told you that though.",
   "main": "index.js",
   "scripts": {
-    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
-    "start": "http-server",
-    "webpack": "webpack"
+    "start": "rollup --config --watch --enviroment BUILD:dev",
+    "build": "rollup --config --environment BUILD:production"
   },
-  "author": "",
+  "author": "BeefEX",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
