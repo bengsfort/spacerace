@@ -10,14 +10,13 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@babel/core": "^7.0.0-beta.42",
-    "babel-core": "^6.26.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015-rollup": "^3.0.0",
     "rollup": "^0.57.1",
-    "rollup-plugin-babel": "^3.0.3"
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-generate-html-template": "^1.1.0"
   }
 }
