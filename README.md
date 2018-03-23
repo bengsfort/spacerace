@@ -12,7 +12,7 @@ Use this if you want to start an incremental build with sourcemaps:
 npm run start
 ```
 
-Or use this if you want to run a one-tim build for production:
+Or use this if you want to run a one-time build for production:
 ```bash
 npm run build
 ```
