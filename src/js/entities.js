@@ -62,7 +62,7 @@ export class Ship extends Entity {
         
         this.rotation += (Math.PI / 32) * this.controller.GetTurningAxis();
 
-        if (Math.abs(this.controller.GetTurningAxis()) > 0.1) {
+        if (this.controller.IsTurning()) {
             this.speed.x += Math.cos(this.rotation) * 0.5;
             this.speed.y += Math.sin(this.rotation) * 0.5;
         }
@@ -77,5 +77,15 @@ export class Ship extends Entity {
         canvas.lineTo(this.x + Math.cos(this.rotation) * 10, this.y + Math.sin(this.rotation) * 10);
         canvas.lineTo(this.x - Math.cos(this.rotation - 0.5) * 10, this.y - Math.sin(this.rotation - 0.5) * 10);
         canvas.stroke();
+    }
+}
+
+export class World extends Entity {
+
+    /**
+     * Used to create a new world.
+     */
+    constructor () {
+        super(0, 0);
     }
 }

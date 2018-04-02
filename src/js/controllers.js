@@ -11,6 +11,12 @@ export class Controller {
     GetTurningAxis() { }
 
     /**
+     * Used to detect if the user is turning.
+     * @returns {boolean} Whenever the user is turning.
+     */
+    IsTurning() { }
+
+    /**
      * 
      * @param {() => void} listener 
      */
@@ -44,6 +50,14 @@ export class GamepadController extends Controller {
     GetTurningAxis() {
         let gp = navigator.getGamepads()[this.gamepadId];
         return - gp.buttons[6].value + gp.buttons[7].value;
+    }
+
+    /**
+     * Used to detect if the user is turning.
+     * @returns {boolean} Whenever the user is turning.
+     */
+    IsTurning() {
+        return Math.abs(this.GetTurningAxis) > 0.1;
     }
 }
 
@@ -110,5 +124,13 @@ export class KeyboardController extends Controller {
         tmp += (this.state.right)? 1: 0;
 
         return tmp;
+    }
+
+    /**
+     * Used to detect if the user is turning.
+     * @returns {boolean} Whenever the user is turning.
+     */
+    IsTurning() {
+        return this.state.right || this.state.left;
     }
 }
