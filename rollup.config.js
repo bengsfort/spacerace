@@ -1,69 +1,25 @@
-import babel from 'rollup-plugin-babel';
-import htmlTemplate from 'rollup-plugin-generate-html-template';
-import uglify from 'rollup-plugin-uglify';
-import serve from 'rollup-plugin-serve'
+import dev from  "./targets/dev";
+import prod from "./targets/prod";
 
-//region Plugin setup
+// Placeholder object, will be set to the selected target
+let target = {};
 
-// Setting up all plugins
-let plugins = [
+// Using one of the targets depeneding on params
+switch (process.env.BUILD) {
 
-  // Transpiles ES6 to current JS
-  babel({
-    exclude: 'node_modules/**'
-  }),
+  // Development target
+  case "dev":
+    target = dev;
+    break;
 
-  // Generates an html file and injects the JS bundle
-  htmlTemplate({
-    template: 'src/template.html',
-    target: 'index.html'
-  }),
+  // Production target
+  case "production":
+    target = prod;
+    break;
 
-  // Minifies the JS bundle
-  uglify()
-]
-
-// Start a server if not in production build
-if (process.env.BUILD == "dev") {
-  plugins.push(serve({
-    open: true,
-    contentBase: ['dist']
-  }));
+  // Fallback in case of an unknown value
+  default:
+    throw new Error("Unknown build type, use `dev` or `production`.")
 }
 
-//endregion
-
-
-//region Output setup
-
-// Setting up the output object
-let out = {
-  file: 'dist/bundle.js',
-  format: 'cjs'
-}
-
-// Add sourcemaps if not in production build
-if (process.env.BUILD == "dev") {
-  out.sourcemap = true;
-}
-
-//endregion
-
-export default {
-  // The entry module
-  input: 'src/js/main.js',
-
-  // Setting the output object
-  output: out,
-
-  // Passing the plugins array
-  plugins: plugins,
-
-  // Watch setup
-  watch: {
-    chokidar : true,
-    include: 'src/**',
-    exclude: 'node_modules/**',
-    clearScreen: false
-  }
-};
+export default target;
