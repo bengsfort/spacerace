@@ -4,8 +4,8 @@
   "description": "A game. In space. About racing. The title already told you that though.",
   "main": "index.js",
   "scripts": {
-    "start": "rollup --config --watch --environment BUILD:dev",
-    "build": "rollup --config --environment BUILD:production"
+    "start": "rollup --config ./targets/dev.js --watch",
+    "build": "rollup --config ./targets/prod.js"
   },
   "author": "BeefEX",
   "license": "Unlicence",
