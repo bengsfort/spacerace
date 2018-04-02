@@ -2,18 +2,6 @@ import plugins from "./common";
 import serve from 'rollup-plugin-serve';
 import livereload from "rollup-plugin-livereload";
 
-plugins.push([
-
-    // Starts a server and opens browser window
-    serve({
-        open: true,
-        contentBase: ['dist']
-    }),
-
-    // Starts livereload service
-    livereload()
-]);
-
 export default {
     // The entry module
     input: 'src/js/main.js',
@@ -26,7 +14,16 @@ export default {
     },
     
     // Passing the plugins array
-    plugins: plugins,
+    plugins: plugins.concat([
+        // Starts a server and opens browser window
+        serve({
+            open: true,
+            contentBase: ['dist']
+        }),
+    
+        // Starts livereload service
+        livereload()
+    ]),
     
     // Watch setup
     watch: {
